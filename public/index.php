@@ -8,7 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
-$app->get('/test/{name}', function (Request $request, Response $response, $args) {
+$app->get('/hello/{name}', function (Request $request, Response $response, $args) {
     	$name = $request->getAttribute('name');
 	$response->getBody()->write("Hello , $name ");
     return $response;
