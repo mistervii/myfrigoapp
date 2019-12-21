@@ -44,7 +44,7 @@ $app->get('/api/customer/{id}', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $customer = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($customer);
+        return $response->withStatus(200)->withHeader('Content-Type', 'application/json')->write(json_encode($customer));
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
