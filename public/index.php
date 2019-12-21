@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
-
+require 'db.php';
 $app = AppFactory::create();
 $app->addRoutingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
@@ -13,5 +13,5 @@ $app->get('/hello/{name}', function (Request $request, Response $response, $args
 	$response->getBody()->write("Hello , $name ");
     return $response;
 });
-
+require 'myfrigo.php';
 $app->run();
