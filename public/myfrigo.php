@@ -21,9 +21,7 @@ $app->get('/api/help', function(Request $request, Response $response){
    
    ";
 	    
-    } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
-    }
+   
 });
 
 // Get All recipes
