@@ -9,9 +9,9 @@ $app = AppFactory::create();
 
 
 
-// Get All Customers
-$app->get('/api/customers', function(Request $request, Response $response){
-    $sql = "SELECT * FROM customers";
+// Get All recipes
+$app->get('/api/recipes', function(Request $request, Response $response){
+    $sql = "SELECT * FROM recette_info";
 
     try{
         // Get DB Object
@@ -20,20 +20,21 @@ $app->get('/api/customers', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $customers = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-           echo json_encode($customers);
+           $response->setContent(json_encode($recettes));
+       return $response;
 	    
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
 
-// Get Single Customer
+// Get Single recipe
 $app->get('/api/customer/{id}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
-    $sql = "SELECT * FROM customers WHERE id = $id";
+    $sql = "SELECT * FROM rcette_info WHERE id_recette = $id";
 
     try{
         // Get DB Object
@@ -42,9 +43,9 @@ $app->get('/api/customer/{id}', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $customer = $stmt->fetch(PDO::FETCH_OBJ);
+        $recette = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($customer);
+        echo json_encode($recette);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
