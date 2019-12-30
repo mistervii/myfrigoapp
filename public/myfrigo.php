@@ -19,7 +19,7 @@ $app->get('/api/help', function(Request $request, Response $response){
   PUT: /api/frigo/update/{id_user} => mise a jour du frigo d un user ps: ajouter les parametres id_ingrd , quantite , id_unite
    
    
-   "
+   ";
 	    
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
