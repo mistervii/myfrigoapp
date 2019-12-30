@@ -31,7 +31,7 @@ $app->get('/api/recipes', function(Request $request, Response $response){
 });
 
 // Get Single recipe
-$app->get('/api/customer/{id}', function(Request $request, Response $response){
+$app->get('/api/recipe/{id}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
     $sql = "SELECT * FROM rcette_info WHERE id_recette = $id";
@@ -51,64 +51,22 @@ $app->get('/api/customer/{id}', function(Request $request, Response $response){
     }
 });
 
-// Add Customer
-$app->post('/api/customer/add', function(Request $request, Response $response){
-    $first_name = $request->getParam('first_name');
-    $last_name = $request->getParam('last_name');
-    $phone = $request->getParam('phone');
-    $email = $request->getParam('email');
-    $address = $request->getParam('address');
-    $city = $request->getParam('city');
-    $state = $request->getParam('state');
 
-    $sql = "INSERT INTO customers (first_name,last_name,phone,email,address,city,state) VALUES
-    (:first_name,:last_name,:phone,:email,:address,:city,:state)";
+// Get sugested recipes
+$app->get('/api/recipe/{id_user}', function(Request $request, Response $response){
+    $id_user = $request->getAttribute('id_user');
 
-    try{
-        // Get DB Object
-        $db = new db();
-        // Connect
-        $db = $db->connect();
-
-        $stmt = $db->prepare($sql);
-
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name',  $last_name);
-        $stmt->bindParam(':phone',      $phone);
-        $stmt->bindParam(':email',      $email);
-        $stmt->bindParam(':address',    $address);
-        $stmt->bindParam(':city',       $city);
-        $stmt->bindParam(':state',      $state);
-
-        $stmt->execute();
-
-        echo '{"notice": {"text": "Customer Added"}';
-
-    } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
-    }
-});
-
-// Update Customer
-$app->put('/api/customer/update/{id}', function(Request $request, Response $response){
-    $id = $request->getAttribute('id');
-    $first_name = $request->getParam('first_name');
-    $last_name = $request->getParam('last_name');
-    $phone = $request->getParam('phone');
-    $email = $request->getParam('email');
-    $address = $request->getParam('address');
-    $city = $request->getParam('city');
-    $state = $request->getParam('state');
-
-    $sql = "UPDATE customers SET
-				first_name 	= :first_name,
-				last_name 	= :last_name,
-                phone		= :phone,
-                email		= :email,
-                address 	= :address,
-                city 		= :city,
-                state		= :state
-			WHERE id = $id";
+    $sql = "
+		select id_recette_originale from
+		(SELECT recette_info.id_recette as id_recette_frigo,count(*) as qte_frigo from recette_info , recette_ingrd , frigo 
+		where recette_ingrd.id_recette=recette_info.id_recette 
+		and recette_ingrd.id_ingrd = frigo.id_ingrd 
+		and frigo.id_user = $id_user
+		and frigo.quantite >= recette_ingrd.quantite
+		group by recette_info.id_recette) as table1,
+		(select recette_ingrd.id_recette as id_recette_originale,count(recette_ingrd.id_ingrd) as qte_recette_originale from recette_ingrd group by recette_ingrd.id_recette) as table2
+		where id_recette_originale=id_recette_frigo
+		and (qte_frigo/qte_recette_originale)*100>=65";
 
     try{
         // Get DB Object
@@ -116,42 +74,51 @@ $app->put('/api/customer/update/{id}', function(Request $request, Response $resp
         // Connect
         $db = $db->connect();
 
-        $stmt = $db->prepare($sql);
-
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name',  $last_name);
-        $stmt->bindParam(':phone',      $phone);
-        $stmt->bindParam(':email',      $email);
-        $stmt->bindParam(':address',    $address);
-        $stmt->bindParam(':city',       $city);
-        $stmt->bindParam(':state',      $state);
-
-        $stmt->execute();
-
-        echo '{"notice": {"text": "Customer Updated"}';
-
-    } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
-    }
-});
-
-// Delete Customer
-$app->delete('/api/customer/delete/{id}', function(Request $request, Response $response){
-    $id = $request->getAttribute('id');
-
-    $sql = "DELETE FROM customers WHERE id = $id";
-
-    try{
-        // Get DB Object
-        $db = new db();
-        // Connect
-        $db = $db->connect();
-
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
+        $stmt = $db->query($sql);
+        $recettes = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
-        echo '{"notice": {"text": "Customer Deleted"}';
+        echo json_encode($recettes);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
+
+
+// Update Frigo
+$app->put('/api/frigo/update/{id_user}', function(Request $request, Response $response){
+	
+    $id_user = $request->getAttribute('id_user');
+    $id_ingrd = $request->getParam('id_ingrd');
+    $quantite = $request->getParam('quantite');
+    $id_unite = $request->getParam('id_unite');
+	
+   
+
+    $sql = "UPDATE frigo SET
+				id_unite 	= :id_unite,
+				quantite 	= :quantite
+               
+			WHERE id_ingrd = $id_ingrd and id_user = $id_user" ;
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(':id_unite', $id_unite);
+        $stmt->bindParam(':quantite',  $quantite);
+       
+
+        $stmt->execute();
+
+        echo '{"notice": {"text": "Frigo Updated"}';
+
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+
+
