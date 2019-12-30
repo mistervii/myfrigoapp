@@ -22,8 +22,8 @@ $app->get('/api/recipes', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-           echo $json_encode($recettes);
-   
+	    
+  echo json_encode($recettes);
 	    
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
