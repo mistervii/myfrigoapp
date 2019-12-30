@@ -22,8 +22,8 @@ $app->get('/api/recipes', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-           $response->setContent(json_encode($recettes));
-       return $response;
+           echo $json_encode($recettes);
+   
 	    
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
@@ -50,7 +50,46 @@ $app->get('/api/recipe/{id}', function(Request $request, Response $response){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
+// Get ingredient  recipe
+$app->get('/api/recipe/ingrd/{id_recette}', function(Request $request, Response $response){
+    $id_recette = $request->getAttribute('id_recette');
 
+    $sql = "SELECT * FROM recette_ingrd WHERE id_recette = $id_recette";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $ingrd = $stmt->fetch(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($ingrd);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+// Get Single recipe
+$app->get('/api/recipe/steps/{id_recette}', function(Request $request, Response $response){
+    $id_recette = $request->getAttribute('id_recette');
+
+    $sql = "SELECT * FROM recette_step WHERE id_recette = $id_recette";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $steps = $stmt->fetch(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($steps);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
 
 // Get sugested recipes
 $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $response){
