@@ -11,12 +11,12 @@ $app = AppFactory::create();
 $app->get('/api/help', function(Request $request, Response $response){
    echo "
    
-  GET: /api/recipes => toutes les recettes;
-  GET: /api/recipe/{id_recette} => recette avec id
-  GET: /api/recipe/ingrd/{id_recette} => ingredients d une recette
-  GET: /api/recipe/steps/{id_recette} => etapes d une recette
-  GET: /api/frigo_recipes/{id_user} => listes recette suggere
-  PUT: /api/frigo/update/{id_user} => mise a jour du frigo d un user ps: ajouter les parametres id_ingrd , quantite , id_unite
+  GET: /api/recipes => toutes les recettes\n
+  GET: /api/recipe/{id_recette} => recette avec id\n
+  GET: /api/recipe/ingrd/{id_recette} => ingredients d une recette\n
+  GET: /api/recipe/steps/{id_recette} => etapes d une recette\n
+  GET: /api/frigo_recipes/{id_user} => listes recette suggere\n
+  PUT: /api/frigo/update/{id_user} => mise a jour du frigo d un user ps: ajouter les parametres id_ingrd , quantite , id_unite\n
    
    
    ";
