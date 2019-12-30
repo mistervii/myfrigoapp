@@ -53,7 +53,7 @@ $app->get('/api/recipe/{id}', function(Request $request, Response $response){
 
 
 // Get sugested recipes
-$app->get('/api/recipe/{id_user}', function(Request $request, Response $response){
+$app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $response){
     $id_user = $request->getAttribute('id_user');
 
     $sql = "
