@@ -40,7 +40,7 @@ $app->get('/api/users', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $users = $stmt->fetch(PDO::FETCH_OBJ);
+        $users = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($users);
     } catch(PDOException $e){
@@ -60,7 +60,7 @@ $app->get('/api/user/{id}', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $user = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($user);
     } catch(PDOException $e){
@@ -102,7 +102,7 @@ $app->get('/api/recipe/{id}', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $recette = $stmt->fetch(PDO::FETCH_OBJ);
+        $recette = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($recette);
     } catch(PDOException $e){
@@ -122,7 +122,7 @@ $app->get('/api/recipe/ingrd/{id_recette}', function(Request $request, Response 
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $ingrd = $stmt->fetch(PDO::FETCH_OBJ);
+        $ingrd = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($ingrd);
     } catch(PDOException $e){
@@ -142,7 +142,7 @@ $app->get('/api/recipe/steps/{id_recette}', function(Request $request, Response 
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $steps = $stmt->fetch(PDO::FETCH_OBJ);
+        $steps = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($steps);
     } catch(PDOException $e){
@@ -173,7 +173,7 @@ $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $r
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $recettes = $stmt->fetch(PDO::FETCH_OBJ);
+        $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($recettes);
     } catch(PDOException $e){
