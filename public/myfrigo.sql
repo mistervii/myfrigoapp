@@ -289,10 +289,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nom`, `id_regime`) VALUES
-(1, 'zineb', 1,zineb@gmail.com,zineb123),
-(2, 'youssef', 2,youssef@gmail.com,youssef123),
-(3, 'mouna', 1,mouna@gmail.com,mouna123),
-(4, 'meryem', 2,meryem@gmail.com,meryem123);
+(1, 'zineb', 1,'zineb@gmail.com','zineb123'),
+(2, 'youssef', 2,'youssef@gmail.com','youssef123'),
+(3, 'mouna', 1,'mouna@gmail.com','mouna123'),
+(4, 'meryem', 2,'meryem@gmail.com','meryem123');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
