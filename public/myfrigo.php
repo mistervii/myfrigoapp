@@ -34,7 +34,7 @@ $app->get('/api/recipes', function(Request $request, Response $response){
 $app->get('/api/recipe/{id}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
-    $sql = "SELECT * FROM rcette_info WHERE id_recette = $id";
+    $sql = "SELECT * FROM recette_info WHERE id_recette = $id";
 
     try{
         // Get DB Object
