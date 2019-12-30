@@ -23,6 +23,46 @@ $app->get('/api/help', function(Request $request, Response $response){
 	    
    
 });
+//GET ALL USERS
+$app->get('/api/users', function(Request $request, Response $response){
+   
+
+    $sql = "SELECT * FROM user";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $users = $stmt->fetch(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($users);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+//GET A USER
+$app->get('/api/user/{id}', function(Request $request, Response $response){
+    $id = $request->getAttribute('id');
+
+    $sql = "SELECT * FROM user WHERE id_user = $id";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($user);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
 
 // Get All recipes
 $app->get('/api/recipes', function(Request $request, Response $response){
