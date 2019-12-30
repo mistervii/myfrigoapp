@@ -288,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- DÃ©chargement des donnÃ©es de la table `user`
 --
 
-INSERT INTO `user` (`id_user`, `nom`, `id_regime`) VALUES
+INSERT INTO `user` (`id_user`, `nom`, `id_regime`, `email`, `pswd`) VALUES
 (1, 'zineb', 1,'zineb@gmail.com','zineb123'),
 (2, 'youssef', 2,'youssef@gmail.com','youssef123'),
 (3, 'mouna', 1,'mouna@gmail.com','mouna123'),
