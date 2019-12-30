@@ -11,7 +11,7 @@ $app = AppFactory::create();
 $app->get('/api/help', function(Request $request, Response $response){
    
    
- echo " GET: /api/recipes => toutes les recettes\r\n ";
+ echo nl2br " GET: /api/recipes => toutes les recettes\r\n ";
  echo " GET: /api/recipe/{id_recette} => recette avec id\r\n ";
  echo " GET: /api/recipe/ingrd/{id_recette} => ingredients d une recette\r\n ";
  echo " GET: /api/recipe/steps/{id_recette} => etapes d une recette\r\n ";
