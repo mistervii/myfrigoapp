@@ -81,7 +81,7 @@ $app->get('/api/recipes', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $recettes = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
 	    
   echo json_encode($recettes);
@@ -144,7 +144,7 @@ $app->get('/api/recipe/steps/{id_recette}', function(Request $request, Response 
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $steps = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $steps = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
         echo json_encode($steps);
     } catch(PDOException $e){
