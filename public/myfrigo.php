@@ -66,7 +66,9 @@ $app->get('/api/user/{id}', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $user = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($user);
+	 
+      $response->getBody()->write(json_encode($user));
+	    return $response;
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
