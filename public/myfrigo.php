@@ -42,9 +42,10 @@ $app->get('/api/users', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $users = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-       $response = $response->getBody()->write( json_encode($users));
+       //$response = $response->getBody()->write( json_encode($users));
 //
-       return $response;
+       //return $response;
+	    echo json_encode($users);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
