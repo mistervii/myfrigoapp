@@ -42,7 +42,7 @@ $app->get('/api/users', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $users = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-       $newResponse = $oldResponse->withJson($users);
+       $response = $response->withJson($users);
 //
        return $response;
     } catch(PDOException $e){
