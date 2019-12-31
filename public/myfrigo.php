@@ -82,7 +82,7 @@ $app->get('/api/recipes', function(Request $request, Response $response){
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $recettes = $stmt->fetch(PDO::FETCH_OBJ);
+        $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
 	    
   echo json_encode($recettes);
