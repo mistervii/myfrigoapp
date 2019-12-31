@@ -152,6 +152,27 @@ $app->get('/api/recipe/steps/{id_recette}', function(Request $request, Response 
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
+//GET USER'S FRIGO
+// Get Single recipe
+$app->get('/api/frigo/{id_user}', function(Request $request, Response $response){
+    $id_user = $request->getAttribute('id_user');
+
+    $sql = "SELECT ingredients.label_ingrd,frigo.* from frigo,ingredients where ingredients.id_ingrd=frigo.id_ingrd and frigo.id_user = $id_user";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $frigo = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+        echo json_encode($frigo);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
 
 // Get sugested recipes
 $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $response){
