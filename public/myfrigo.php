@@ -157,7 +157,7 @@ $app->get('/api/recipe/steps/{id_recette}', function(Request $request, Response 
         $db = $db->connect();
 
         $stmt = $db->query($sql);
-        $steps = $stmt->fetch(PDO::FETCH_OBJ);
+        $steps = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
 	    
 	     $response->getBody()->write(json_encode($steps));
@@ -224,6 +224,52 @@ $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $r
 	    return $response;
 	    
         //echo json_encode($recettes);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+//GET liste regime
+$app->get('/api/regimes', function(Request $request, Response $response){
+
+
+$sql="Select * from regime"
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $regime = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	    
+	     $response->getBody()->write(json_encode($regime));
+	    return $response;
+	    
+       // echo json_encode($frigo);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+//GET liste regime
+$app->get('/api/regime/{id_regime}', function(Request $request, Response $response){
+    $id_regime = $request->getAttribute('id_regime');
+
+$sql="Select * from regime where id_regime = $id_regime"
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $regime = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	    
+	     $response->getBody()->write(json_encode($regime));
+	    return $response;
+	    
+       // echo json_encode($frigo);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
