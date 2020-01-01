@@ -254,7 +254,7 @@ $sql="Select * from regime";
 $app->get('/api/regime/{id_regime}', function(Request $request, Response $response){
     $id_regime = $request->getAttribute('id_regime');
 
-$sql="Select * from regime where id_regime = $id_regime"
+$sql="Select * from regime where id_regime = $id_regime";
     try{
         // Get DB Object
         $db = new db();
