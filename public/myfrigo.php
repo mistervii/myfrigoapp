@@ -80,7 +80,7 @@ $app->get('/api/user/{id}', function(Request $request, Response $response){
 $app->get('/api/ingrd/{id}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
-    $sql = "SELECT * FROM inredients WHERE id_user = $id";
+    $sql = "SELECT * FROM ingredients WHERE id_user = $id";
 
     try{
         // Get DB Object
