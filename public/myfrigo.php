@@ -22,6 +22,8 @@ $app->get('/api/help', function(Request $request, Response $response){
  GET: /api/frigo/{id_user} => aliments dans frigot avec leur nom pour un user \r\n ;
  GET: /api/regimes =>liste des regimes\r\n ;
  GET: /api/regime/{id_regime} => regime de id \r\n ;
+ GET: /api/articles => liste des articles \r\n ;
+ GET: /api/toparticles => liste des top articles \r\n ;
  
  ");
    
@@ -74,6 +76,51 @@ $app->get('/api/user/{id}', function(Request $request, Response $response){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
+//GET articles
+$app->get('/api/articles', function(Request $request, Response $response){
+    
+
+    $sql = "SELECT * FROM articles";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $articles = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	 
+      $response->getBody()->write(json_encode($articles));
+	    return $response;
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+//GET TOP_articles
+$app->get('/api/toparticles', function(Request $request, Response $response){
+    
+
+    $sql = "SELECT * FROM top_articles";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $articles = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	 
+      $response->getBody()->write(json_encode($articles));
+	    return $response;
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+
 
 // Get All recipes
 $app->get('/api/recipes', function(Request $request, Response $response){
