@@ -76,6 +76,28 @@ $app->get('/api/user/{id}', function(Request $request, Response $response){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
+//GET A USER
+$app->get('/api/ingrd/{id}', function(Request $request, Response $response){
+    $id = $request->getAttribute('id');
+
+    $sql = "SELECT * FROM inredients WHERE id_user = $id";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $ingrd = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	 
+      $response->getBody()->write(json_encode($ingrd));
+	    return $response;
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
 //GET articles
 $app->get('/api/articles', function(Request $request, Response $response){
     
