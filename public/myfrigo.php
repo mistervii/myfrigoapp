@@ -169,7 +169,6 @@ $app->get('/api/recipe/steps/{id_recette}', function(Request $request, Response 
     }
 });
 //GET USER'S FRIGO
-// Get Single recipe
 $app->get('/api/frigo/{id_user}', function(Request $request, Response $response){
     $id_user = $request->getAttribute('id_user');
 
@@ -232,7 +231,7 @@ $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $r
 $app->get('/api/regimes', function(Request $request, Response $response){
 
 
-$sql="Select * from regime"
+$sql="Select * from regime";
     try{
         // Get DB Object
         $db = new db();
