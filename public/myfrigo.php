@@ -20,6 +20,8 @@ $app->get('/api/help', function(Request $request, Response $response){
  GET: /api/users => liste users\r\n ;
  GET: /api/user/{id} => l utilisateur avec id\r\n ;
  GET: /api/frigo/{id_user} => aliments dans frigot avec leur nom pour un user \r\n ;
+ GET: /api/regimes =>liste des regimes\r\n ;
+ GET: /api/regime/{id_regime} => regime de id \r\n ;
  
  ");
    
