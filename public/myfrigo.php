@@ -43,10 +43,9 @@ $app->get('/api/users', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $users = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-       //$response = $response->getBody()->write( json_encode($users));
-//
-       //return $response;
-	    echo json_encode($users);
+     $response->getBody()->write( json_encode($users));
+     return $response;
+	   // echo json_encode($users);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
@@ -88,7 +87,9 @@ $app->get('/api/recipes', function(Request $request, Response $response){
         $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
 	    
-  echo json_encode($recettes);
+	    $response->getBody()->write(json_encode($recettes));
+	    return $response;
+  //echo json_encode($recettes);
 	    
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
@@ -110,7 +111,11 @@ $app->get('/api/recipe/{id}', function(Request $request, Response $response){
         $stmt = $db->query($sql);
         $recette = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($recette);
+	    
+	     $response->getBody()->write(json_encode($recette));
+	    return $response;
+	    
+       // echo json_encode($recette);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
@@ -130,7 +135,11 @@ $app->get('/api/recipe/ingrd/{id_recette}', function(Request $request, Response 
         $stmt = $db->query($sql);
         $ingrd = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($ingrd);
+	    
+	     $response->getBody()->write(json_encode($ingrd));
+	    return $response;
+	    
+       // echo json_encode($ingrd);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
@@ -150,7 +159,11 @@ $app->get('/api/recipe/steps/{id_recette}', function(Request $request, Response 
         $stmt = $db->query($sql);
         $steps = $stmt->fetch(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($steps);
+	    
+	     $response->getBody()->write(json_encode($steps));
+	    return $response;
+	    
+       // echo json_encode($steps);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
@@ -171,7 +184,11 @@ $app->get('/api/frigo/{id_user}', function(Request $request, Response $response)
         $stmt = $db->query($sql);
         $frigo = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($frigo);
+	    
+	     $response->getBody()->write(json_encode($frigo));
+	    return $response;
+	    
+       // echo json_encode($frigo);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
@@ -202,7 +219,11 @@ $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $r
         $stmt = $db->query($sql);
         $recettes = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        echo json_encode($recettes);
+	    
+	     $response->getBody()->write(json_encode($recettes));
+	    return $response;
+	    
+        //echo json_encode($recettes);
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
@@ -239,7 +260,10 @@ $app->put('/api/frigo/update/{id_user}', function(Request $request, Response $re
 
         $stmt->execute();
 
-        echo '{"notice": {"text": "Frigo Updated"}';
+	     $response->getBody()->write('{"notice": {"text": "Frigo Updated"}');
+	    return $response;
+	    
+       // echo '{"notice": {"text": "Frigo Updated"}';
 
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
