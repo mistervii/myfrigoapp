@@ -76,11 +76,11 @@ $app->get('/api/user/{id}', function(Request $request, Response $response){
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
-//GET A USER
+//GET A ingrd
 $app->get('/api/ingrd/{id}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
-    $sql = "SELECT * FROM ingredients WHERE id_user = $id";
+    $sql = "SELECT * FROM ingredients WHERE id_ingrd = $id";
 
     try{
         // Get DB Object
