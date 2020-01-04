@@ -19,6 +19,8 @@ $app->get('/api/help', function(Request $request, Response $response){
  PUT: /api/frigo/update/{id_user} => mise a jour du frigo d un user ps: ajouter les parametres id_ingrd , quantite , id_unite\\r\n ;
  GET: /api/users => liste users\r\n ;
  GET: /api/user/{id} => l utilisateur avec id\r\n ;
+ GET: /api/ingrd => liste ingrd\r\n ;
+ GET: /api/ingrd/{id} => l ingrd avec id\r\n ;
  GET: /api/frigo/{id_user} => aliments dans frigot avec leur nom pour un user \r\n ;
  GET: /api/regimes =>liste des regimes\r\n ;
  GET: /api/regime/{id_regime} => regime de id \r\n ;
@@ -81,6 +83,28 @@ $app->get('/api/ingrd/{id}', function(Request $request, Response $response){
     $id = $request->getAttribute('id');
 
     $sql = "SELECT * FROM ingredients WHERE id_ingrd = $id";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $ingrd = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	 
+      $response->getBody()->write(json_encode($ingrd));
+	    return $response;
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+//GET list ingrd
+$app->get('/api/ingrd', function(Request $request, Response $response){
+    
+
+    $sql = "SELECT * FROM ingredients ";
 
     try{
         // Get DB Object
