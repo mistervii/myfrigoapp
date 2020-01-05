@@ -430,8 +430,7 @@ $app->GET('/api/frigo/update/{id_user}/{id_ingrd}/{quantite}', function(Request 
 	
    
 
-    $sql = "REPLACE into frigo(id_user,id_ingrd,quantite,id_unite) values($id_user,$id_ingrd,$quantite,1)
-			WHERE id_ingrd = $id_ingrd and id_user = $id_user" ;
+    $sql = "REPLACE into frigo(id_user,id_ingrd,quantite,id_unite) values($id_user,$id_ingrd,$quantite,1)";
 
     try{
         // Get DB Object
