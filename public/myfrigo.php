@@ -318,7 +318,7 @@ $app->get('/api/frigo/{id_user}/{id_ingrd}', function(Request $request, Response
 $app->get('/api/nomingrd/{nom}', function(Request $request, Response $response){
     $nom = $request->getAttribute('nom');
 
-    $sql = "SELECT * FROM ingredients WHERE label_ingrd = $nom";
+    $sql = "SELECT * FROM ingredients WHERE label_ingrd ='$nom'";
 
     try{
         // Get DB Object
