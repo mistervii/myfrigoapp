@@ -420,7 +420,7 @@ $sql="Select * from regime where id_regime = $id_regime";
 
 
 // Update Frigo
-$app->GET('/api/frigo/update/{id_user}/{id_ingr}/{quantite}', function(Request $request, Response $response ,$args){
+$app->GET('/api/frigo/update/{id_user}/{id_ingrd}/{quantite}', function(Request $request, Response $response ,$args){
 	
     $id_user = $request->getAttribute('id_user');
 	
