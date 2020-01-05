@@ -26,6 +26,8 @@ $app->get('/api/help', function(Request $request, Response $response){
  GET: /api/regime/{id_regime} => regime de id \r\n ;
  GET: /api/articles => liste des articles \r\n ;
  GET: /api/toparticles => liste des top articles \r\n ;
+ GET: /api/nomingrd =>  \r\n ;
+ GET: /api/frigo/{id_user}/{id_ingrd}=> \r\n ;
  
  ");
    
