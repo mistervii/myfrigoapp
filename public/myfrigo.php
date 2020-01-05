@@ -431,7 +431,7 @@ $app->post('/api/frigo/update/{id_user}', function(Request $request, Response $r
    
 
     $sql = "REPLACE into frigo(id_user,id_ingrd,quantite,id_unite) values($id_user,:id_ingrd,:quantite,:id_unite)
-			WHERE id_ingrd = $id_ingrd and id_user = $id_user" ;
+			WHERE id_ingrd = :id_ingrd and id_user = $id_user" ;
 
     try{
         // Get DB Object
