@@ -287,6 +287,53 @@ $app->get('/api/frigo/{id_user}', function(Request $request, Response $response)
         echo '{"error": {"text": '.$e->getMessage().'}';
     }
 });
+//GET info ingrd user
+$app->get('/api/frigo/{id_user}/{id_ingrd}', function(Request $request, Response $response){
+    $id_user = $request->getAttribute('id_user');
+	$id_ingrd = $request->getAttribute('id_ingrd');
+
+    $sql = "SELECT * from frigo where id_ingrd=$id_ingrd and id_user = $id_user";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $frigo = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	    
+	     $response->getBody()->write(json_encode($frigo));
+	    return $response;
+	    
+       // echo json_encode($frigo);
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
+//GET info ingrd by nom
+$app->get('/api/nomingrd/{nom}', function(Request $request, Response $response){
+    $nom = $request->getAttribute('nom');
+
+    $sql = "SELECT * FROM ingredients WHERE label_ingrd = $nom";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->query($sql);
+        $ingrd = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+	 
+      $response->getBody()->write(json_encode($ingrd));
+	    return $response;
+    } catch(PDOException $e){
+        echo '{"error": {"text": '.$e->getMessage().'}';
+    }
+});
 
 // Get sugested recipes
 $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $response){
