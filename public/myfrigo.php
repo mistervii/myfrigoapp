@@ -441,8 +441,9 @@ $app->post('/api/frigo/update/{id_user}', function(Request $request, Response $r
 
         $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':id_unite', $id_unite);
+        $stmt->bindParam(':id_ingrd', $id_ingrd);
         $stmt->bindParam(':quantite',  $quantite);
+	$stmt->bindParam(':id_unite',  $id_unite);
        
 
         $stmt->execute();
