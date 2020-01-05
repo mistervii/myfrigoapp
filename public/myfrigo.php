@@ -430,7 +430,7 @@ $app->GET('/api/frigo/update/{id_user}/{id_ingrd}/{quantite}', function(Request 
 	
    
 
-    $sql = "REPLACE into frigo(id_user,id_ingrd,quantite,id_unite) values($id_user,:id_ingrd,:quantite,:id_unite)
+    $sql = "REPLACE into frigo(id_user,id_ingrd,quantite,id_unite) values($id_user,$id_ingrd,$quantite,$id_unite)
 			WHERE id_ingrd = $id_ingrd and id_user = $id_user" ;
 
     try{
@@ -441,9 +441,7 @@ $app->GET('/api/frigo/update/{id_user}/{id_ingrd}/{quantite}', function(Request 
 
         $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':id_ingrd', $id_ingrd);
-        $stmt->bindParam(':quantite',  $quantite);
-	$stmt->bindParam(':id_unite',  $id_unite);
+        
        
 
         $stmt->execute();
