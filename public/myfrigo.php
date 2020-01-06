@@ -341,7 +341,7 @@ $app->get('/api/nomingrd/{nom}', function(Request $request, Response $response){
 $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $response){
     $id_user = $request->getAttribute('id_user');
 
-    $sql = "
+    $sql = "	select * from recette_info where id_recette in (
 		select id_recette_originale from
 		(SELECT recette_info.id_recette as id_recette_frigo,count(*) as qte_frigo from recette_info , recette_ingrd , frigo 
 		where recette_ingrd.id_recette=recette_info.id_recette 
@@ -351,7 +351,7 @@ $app->get('/api/frigo_recipes/{id_user}', function(Request $request, Response $r
 		group by recette_info.id_recette) as table1,
 		(select recette_ingrd.id_recette as id_recette_originale,count(recette_ingrd.id_ingrd) as qte_recette_originale from recette_ingrd group by recette_ingrd.id_recette) as table2
 		where id_recette_originale=id_recette_frigo
-		and (qte_frigo/qte_recette_originale)*100>=65";
+		and (qte_frigo/qte_recette_originale)*100>=65)";
 
     try{
         // Get DB Object
