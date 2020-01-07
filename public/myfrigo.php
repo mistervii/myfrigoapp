@@ -106,7 +106,7 @@ $app->get('/api/ingrd/{id}', function(Request $request, Response $response){
 $app->get('/api/ingrd', function(Request $request, Response $response){
     
 
-    $sql = "SELECT * FROM ingredients limit 10";
+    $sql = "SELECT * FROM ingredients limit 50";
 
     try{
         // Get DB Object
