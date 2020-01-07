@@ -106,7 +106,7 @@ $app->get('/api/ingrd/{id}', function(Request $request, Response $response){
 $app->get('/api/ingrd', function(Request $request, Response $response){
     
 
-    $sql = "SELECT * FROM ingredients where not id_ingrd=99";
+    $sql = "SELECT * FROM ingredients limit 10";
 
     try{
         // Get DB Object
