@@ -172,7 +172,7 @@ $app->get('/api/toparticles', function(Request $request, Response $response){
 
 // Get All recipes
 $app->get('/api/recipes', function(Request $request, Response $response){
-    $sql = "SELECT * FROM recette_info";
+    $sql = "SELECT * FROM recette_info limit 10";
 
     try{
         // Get DB Object
