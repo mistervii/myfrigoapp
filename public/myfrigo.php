@@ -106,7 +106,7 @@ $app->get('/api/ingrd/{id}', function(Request $request, Response $response){
 $app->get('/api/ingrd', function(Request $request, Response $response){
     
 
-    $sql = "SELECT * FROM ingredients limit 30";
+    $sql = "SELECT * FROM ingredients";
 
     try{
         // Get DB Object
@@ -172,7 +172,7 @@ $app->get('/api/toparticles', function(Request $request, Response $response){
 
 // Get All recipes
 $app->get('/api/recipes', function(Request $request, Response $response){
-    $sql = "SELECT * FROM recette_info limit 5";
+    $sql = "SELECT * FROM recette_info ";
 
     try{
         // Get DB Object
